@@ -1,0 +1,829 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: PROGRAM ID SEMICOLON var_explain BEGINN sentence_list END PERIOD
+
+    2 var_explain: VAR var_explain_list
+
+    3 var_explain_list: var_list COLON ttype1 SEMICOLON
+    4                 | var_list COLON ttype1 SEMICOLON var_explain_list
+
+    5 ttype1: INTEGER
+    6       | REAL
+
+    7 var_list: ID
+    8         | ID COMMA var_list
+
+    9 sentence_list: sentence
+   10              | sentence SEMICOLON sentence_list
+
+   11 sentence: assign_sentence
+   12         | if_sentence
+   13         | while_sentence
+   14         | com_sentence
+
+   15 assign_sentence: ID ASSIGN arithmetic_expr
+
+   16 if_sentence: IF relational_expr THEN sentence ELSE sentence
+
+   17 while_sentence: WHILE relational_expr DO sentence
+
+   18 com_sentence: BEGINN sentence_list END
+
+   19 arithmetic_expr: term
+   20                | arithmetic_expr PLUS term
+   21                | arithmetic_expr MINUS term
+
+   22 term: factor
+   23     | term TIMES factor
+   24     | term DIVIDE factor
+
+   25 factor: ID
+   26       | number
+   27       | LPAREN arithmetic_expr RPAREN
+
+   28 relational_expr: arithmetic_expr RELOP arithmetic_expr
+
+   29 number: INT
+   30       | FLOAT
+
+   31 RELOP: EQ
+   32      | NEQ
+   33      | LT
+   34      | LE
+   35      | GT
+   36      | GE
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ID (258) 1 7 8 15 25
+INT (259) 29
+FLOAT (260) 30
+INTEGER (261) 5
+REAL (262) 6
+COMMA (263) 8
+COLON (264) 3 4
+SEMICOLON (265) 1 3 4 10
+LPAREN (266) 27
+RPAREN (267) 27
+PERIOD (268) 1
+PROGRAM (269) 1
+BEGINN (270) 1 18
+END (271) 1 18
+VAR (272) 2
+IF (273) 16
+WHILE (274) 17
+DO (275) 17
+THEN (276) 16
+ELSE (277) 16
+ASSIGN (278) 15
+EQ (279) 31
+NEQ (280) 32
+LT (281) 33
+LE (282) 34
+GT (283) 35
+GE (284) 36
+PLUS (285) 20
+MINUS (286) 21
+TIMES (287) 23
+DIVIDE (288) 24
+
+
+Nonterminals, with rules where they appear
+
+$accept (34)
+    on left: 0
+program (35)
+    on left: 1, on right: 0
+var_explain (36)
+    on left: 2, on right: 1
+var_explain_list (37)
+    on left: 3 4, on right: 2 4
+ttype1 (38)
+    on left: 5 6, on right: 3 4
+var_list (39)
+    on left: 7 8, on right: 3 4 8
+sentence_list (40)
+    on left: 9 10, on right: 1 10 18
+sentence (41)
+    on left: 11 12 13 14, on right: 9 10 16 17
+assign_sentence (42)
+    on left: 15, on right: 11
+if_sentence (43)
+    on left: 16, on right: 12
+while_sentence (44)
+    on left: 17, on right: 13
+com_sentence (45)
+    on left: 18, on right: 14
+arithmetic_expr (46)
+    on left: 19 20 21, on right: 15 20 21 27 28
+term (47)
+    on left: 22 23 24, on right: 19 20 21 23 24
+factor (48)
+    on left: 25 26 27, on right: 22 23 24
+relational_expr (49)
+    on left: 28, on right: 16 17
+number (50)
+    on left: 29 30, on right: 26
+RELOP (51)
+    on left: 31 32 33 34 35 36, on right: 28
+
+
+State 0
+
+    0 $accept: . program $end
+
+    PROGRAM  shift, and go to state 1
+
+    program  go to state 2
+
+
+State 1
+
+    1 program: PROGRAM . ID SEMICOLON var_explain BEGINN sentence_list END PERIOD
+
+    ID  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 program: PROGRAM ID . SEMICOLON var_explain BEGINN sentence_list END PERIOD
+
+    SEMICOLON  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 5
+
+    1 program: PROGRAM ID SEMICOLON . var_explain BEGINN sentence_list END PERIOD
+
+    VAR  shift, and go to state 6
+
+    var_explain  go to state 7
+
+
+State 6
+
+    2 var_explain: VAR . var_explain_list
+
+    ID  shift, and go to state 8
+
+    var_explain_list  go to state 9
+    var_list          go to state 10
+
+
+State 7
+
+    1 program: PROGRAM ID SEMICOLON var_explain . BEGINN sentence_list END PERIOD
+
+    BEGINN  shift, and go to state 11
+
+
+State 8
+
+    7 var_list: ID .
+    8         | ID . COMMA var_list
+
+    COMMA  shift, and go to state 12
+
+    $default  reduce using rule 7 (var_list)
+
+
+State 9
+
+    2 var_explain: VAR var_explain_list .
+
+    $default  reduce using rule 2 (var_explain)
+
+
+State 10
+
+    3 var_explain_list: var_list . COLON ttype1 SEMICOLON
+    4                 | var_list . COLON ttype1 SEMICOLON var_explain_list
+
+    COLON  shift, and go to state 13
+
+
+State 11
+
+    1 program: PROGRAM ID SEMICOLON var_explain BEGINN . sentence_list END PERIOD
+
+    ID      shift, and go to state 14
+    BEGINN  shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+
+    sentence_list    go to state 18
+    sentence         go to state 19
+    assign_sentence  go to state 20
+    if_sentence      go to state 21
+    while_sentence   go to state 22
+    com_sentence     go to state 23
+
+
+State 12
+
+    8 var_list: ID COMMA . var_list
+
+    ID  shift, and go to state 8
+
+    var_list  go to state 24
+
+
+State 13
+
+    3 var_explain_list: var_list COLON . ttype1 SEMICOLON
+    4                 | var_list COLON . ttype1 SEMICOLON var_explain_list
+
+    INTEGER  shift, and go to state 25
+    REAL     shift, and go to state 26
+
+    ttype1  go to state 27
+
+
+State 14
+
+   15 assign_sentence: ID . ASSIGN arithmetic_expr
+
+    ASSIGN  shift, and go to state 28
+
+
+State 15
+
+   18 com_sentence: BEGINN . sentence_list END
+
+    ID      shift, and go to state 14
+    BEGINN  shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+
+    sentence_list    go to state 29
+    sentence         go to state 19
+    assign_sentence  go to state 20
+    if_sentence      go to state 21
+    while_sentence   go to state 22
+    com_sentence     go to state 23
+
+
+State 16
+
+   16 if_sentence: IF . relational_expr THEN sentence ELSE sentence
+
+    ID      shift, and go to state 30
+    INT     shift, and go to state 31
+    FLOAT   shift, and go to state 32
+    LPAREN  shift, and go to state 33
+
+    arithmetic_expr  go to state 34
+    term             go to state 35
+    factor           go to state 36
+    relational_expr  go to state 37
+    number           go to state 38
+
+
+State 17
+
+   17 while_sentence: WHILE . relational_expr DO sentence
+
+    ID      shift, and go to state 30
+    INT     shift, and go to state 31
+    FLOAT   shift, and go to state 32
+    LPAREN  shift, and go to state 33
+
+    arithmetic_expr  go to state 34
+    term             go to state 35
+    factor           go to state 36
+    relational_expr  go to state 39
+    number           go to state 38
+
+
+State 18
+
+    1 program: PROGRAM ID SEMICOLON var_explain BEGINN sentence_list . END PERIOD
+
+    END  shift, and go to state 40
+
+
+State 19
+
+    9 sentence_list: sentence .
+   10              | sentence . SEMICOLON sentence_list
+
+    SEMICOLON  shift, and go to state 41
+
+    $default  reduce using rule 9 (sentence_list)
+
+
+State 20
+
+   11 sentence: assign_sentence .
+
+    $default  reduce using rule 11 (sentence)
+
+
+State 21
+
+   12 sentence: if_sentence .
+
+    $default  reduce using rule 12 (sentence)
+
+
+State 22
+
+   13 sentence: while_sentence .
+
+    $default  reduce using rule 13 (sentence)
+
+
+State 23
+
+   14 sentence: com_sentence .
+
+    $default  reduce using rule 14 (sentence)
+
+
+State 24
+
+    8 var_list: ID COMMA var_list .
+
+    $default  reduce using rule 8 (var_list)
+
+
+State 25
+
+    5 ttype1: INTEGER .
+
+    $default  reduce using rule 5 (ttype1)
+
+
+State 26
+
+    6 ttype1: REAL .
+
+    $default  reduce using rule 6 (ttype1)
+
+
+State 27
+
+    3 var_explain_list: var_list COLON ttype1 . SEMICOLON
+    4                 | var_list COLON ttype1 . SEMICOLON var_explain_list
+
+    SEMICOLON  shift, and go to state 42
+
+
+State 28
+
+   15 assign_sentence: ID ASSIGN . arithmetic_expr
+
+    ID      shift, and go to state 30
+    INT     shift, and go to state 31
+    FLOAT   shift, and go to state 32
+    LPAREN  shift, and go to state 33
+
+    arithmetic_expr  go to state 43
+    term             go to state 35
+    factor           go to state 36
+    number           go to state 38
+
+
+State 29
+
+   18 com_sentence: BEGINN sentence_list . END
+
+    END  shift, and go to state 44
+
+
+State 30
+
+   25 factor: ID .
+
+    $default  reduce using rule 25 (factor)
+
+
+State 31
+
+   29 number: INT .
+
+    $default  reduce using rule 29 (number)
+
+
+State 32
+
+   30 number: FLOAT .
+
+    $default  reduce using rule 30 (number)
+
+
+State 33
+
+   27 factor: LPAREN . arithmetic_expr RPAREN
+
+    ID      shift, and go to state 30
+    INT     shift, and go to state 31
+    FLOAT   shift, and go to state 32
+    LPAREN  shift, and go to state 33
+
+    arithmetic_expr  go to state 45
+    term             go to state 35
+    factor           go to state 36
+    number           go to state 38
+
+
+State 34
+
+   20 arithmetic_expr: arithmetic_expr . PLUS term
+   21                | arithmetic_expr . MINUS term
+   28 relational_expr: arithmetic_expr . RELOP arithmetic_expr
+
+    EQ     shift, and go to state 46
+    NEQ    shift, and go to state 47
+    LT     shift, and go to state 48
+    LE     shift, and go to state 49
+    GT     shift, and go to state 50
+    GE     shift, and go to state 51
+    PLUS   shift, and go to state 52
+    MINUS  shift, and go to state 53
+
+    RELOP  go to state 54
+
+
+State 35
+
+   19 arithmetic_expr: term .
+   23 term: term . TIMES factor
+   24     | term . DIVIDE factor
+
+    TIMES   shift, and go to state 55
+    DIVIDE  shift, and go to state 56
+
+    $default  reduce using rule 19 (arithmetic_expr)
+
+
+State 36
+
+   22 term: factor .
+
+    $default  reduce using rule 22 (term)
+
+
+State 37
+
+   16 if_sentence: IF relational_expr . THEN sentence ELSE sentence
+
+    THEN  shift, and go to state 57
+
+
+State 38
+
+   26 factor: number .
+
+    $default  reduce using rule 26 (factor)
+
+
+State 39
+
+   17 while_sentence: WHILE relational_expr . DO sentence
+
+    DO  shift, and go to state 58
+
+
+State 40
+
+    1 program: PROGRAM ID SEMICOLON var_explain BEGINN sentence_list END . PERIOD
+
+    PERIOD  shift, and go to state 59
+
+
+State 41
+
+   10 sentence_list: sentence SEMICOLON . sentence_list
+
+    ID      shift, and go to state 14
+    BEGINN  shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+
+    sentence_list    go to state 60
+    sentence         go to state 19
+    assign_sentence  go to state 20
+    if_sentence      go to state 21
+    while_sentence   go to state 22
+    com_sentence     go to state 23
+
+
+State 42
+
+    3 var_explain_list: var_list COLON ttype1 SEMICOLON .
+    4                 | var_list COLON ttype1 SEMICOLON . var_explain_list
+
+    ID  shift, and go to state 8
+
+    $default  reduce using rule 3 (var_explain_list)
+
+    var_explain_list  go to state 61
+    var_list          go to state 10
+
+
+State 43
+
+   15 assign_sentence: ID ASSIGN arithmetic_expr .
+   20 arithmetic_expr: arithmetic_expr . PLUS term
+   21                | arithmetic_expr . MINUS term
+
+    PLUS   shift, and go to state 52
+    MINUS  shift, and go to state 53
+
+    $default  reduce using rule 15 (assign_sentence)
+
+
+State 44
+
+   18 com_sentence: BEGINN sentence_list END .
+
+    $default  reduce using rule 18 (com_sentence)
+
+
+State 45
+
+   20 arithmetic_expr: arithmetic_expr . PLUS term
+   21                | arithmetic_expr . MINUS term
+   27 factor: LPAREN arithmetic_expr . RPAREN
+
+    RPAREN  shift, and go to state 62
+    PLUS    shift, and go to state 52
+    MINUS   shift, and go to state 53
+
+
+State 46
+
+   31 RELOP: EQ .
+
+    $default  reduce using rule 31 (RELOP)
+
+
+State 47
+
+   32 RELOP: NEQ .
+
+    $default  reduce using rule 32 (RELOP)
+
+
+State 48
+
+   33 RELOP: LT .
+
+    $default  reduce using rule 33 (RELOP)
+
+
+State 49
+
+   34 RELOP: LE .
+
+    $default  reduce using rule 34 (RELOP)
+
+
+State 50
+
+   35 RELOP: GT .
+
+    $default  reduce using rule 35 (RELOP)
+
+
+State 51
+
+   36 RELOP: GE .
+
+    $default  reduce using rule 36 (RELOP)
+
+
+State 52
+
+   20 arithmetic_expr: arithmetic_expr PLUS . term
+
+    ID      shift, and go to state 30
+    INT     shift, and go to state 31
+    FLOAT   shift, and go to state 32
+    LPAREN  shift, and go to state 33
+
+    term    go to state 63
+    factor  go to state 36
+    number  go to state 38
+
+
+State 53
+
+   21 arithmetic_expr: arithmetic_expr MINUS . term
+
+    ID      shift, and go to state 30
+    INT     shift, and go to state 31
+    FLOAT   shift, and go to state 32
+    LPAREN  shift, and go to state 33
+
+    term    go to state 64
+    factor  go to state 36
+    number  go to state 38
+
+
+State 54
+
+   28 relational_expr: arithmetic_expr RELOP . arithmetic_expr
+
+    ID      shift, and go to state 30
+    INT     shift, and go to state 31
+    FLOAT   shift, and go to state 32
+    LPAREN  shift, and go to state 33
+
+    arithmetic_expr  go to state 65
+    term             go to state 35
+    factor           go to state 36
+    number           go to state 38
+
+
+State 55
+
+   23 term: term TIMES . factor
+
+    ID      shift, and go to state 30
+    INT     shift, and go to state 31
+    FLOAT   shift, and go to state 32
+    LPAREN  shift, and go to state 33
+
+    factor  go to state 66
+    number  go to state 38
+
+
+State 56
+
+   24 term: term DIVIDE . factor
+
+    ID      shift, and go to state 30
+    INT     shift, and go to state 31
+    FLOAT   shift, and go to state 32
+    LPAREN  shift, and go to state 33
+
+    factor  go to state 67
+    number  go to state 38
+
+
+State 57
+
+   16 if_sentence: IF relational_expr THEN . sentence ELSE sentence
+
+    ID      shift, and go to state 14
+    BEGINN  shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+
+    sentence         go to state 68
+    assign_sentence  go to state 20
+    if_sentence      go to state 21
+    while_sentence   go to state 22
+    com_sentence     go to state 23
+
+
+State 58
+
+   17 while_sentence: WHILE relational_expr DO . sentence
+
+    ID      shift, and go to state 14
+    BEGINN  shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+
+    sentence         go to state 69
+    assign_sentence  go to state 20
+    if_sentence      go to state 21
+    while_sentence   go to state 22
+    com_sentence     go to state 23
+
+
+State 59
+
+    1 program: PROGRAM ID SEMICOLON var_explain BEGINN sentence_list END PERIOD .
+
+    $default  reduce using rule 1 (program)
+
+
+State 60
+
+   10 sentence_list: sentence SEMICOLON sentence_list .
+
+    $default  reduce using rule 10 (sentence_list)
+
+
+State 61
+
+    4 var_explain_list: var_list COLON ttype1 SEMICOLON var_explain_list .
+
+    $default  reduce using rule 4 (var_explain_list)
+
+
+State 62
+
+   27 factor: LPAREN arithmetic_expr RPAREN .
+
+    $default  reduce using rule 27 (factor)
+
+
+State 63
+
+   20 arithmetic_expr: arithmetic_expr PLUS term .
+   23 term: term . TIMES factor
+   24     | term . DIVIDE factor
+
+    TIMES   shift, and go to state 55
+    DIVIDE  shift, and go to state 56
+
+    $default  reduce using rule 20 (arithmetic_expr)
+
+
+State 64
+
+   21 arithmetic_expr: arithmetic_expr MINUS term .
+   23 term: term . TIMES factor
+   24     | term . DIVIDE factor
+
+    TIMES   shift, and go to state 55
+    DIVIDE  shift, and go to state 56
+
+    $default  reduce using rule 21 (arithmetic_expr)
+
+
+State 65
+
+   20 arithmetic_expr: arithmetic_expr . PLUS term
+   21                | arithmetic_expr . MINUS term
+   28 relational_expr: arithmetic_expr RELOP arithmetic_expr .
+
+    PLUS   shift, and go to state 52
+    MINUS  shift, and go to state 53
+
+    $default  reduce using rule 28 (relational_expr)
+
+
+State 66
+
+   23 term: term TIMES factor .
+
+    $default  reduce using rule 23 (term)
+
+
+State 67
+
+   24 term: term DIVIDE factor .
+
+    $default  reduce using rule 24 (term)
+
+
+State 68
+
+   16 if_sentence: IF relational_expr THEN sentence . ELSE sentence
+
+    ELSE  shift, and go to state 70
+
+
+State 69
+
+   17 while_sentence: WHILE relational_expr DO sentence .
+
+    $default  reduce using rule 17 (while_sentence)
+
+
+State 70
+
+   16 if_sentence: IF relational_expr THEN sentence ELSE . sentence
+
+    ID      shift, and go to state 14
+    BEGINN  shift, and go to state 15
+    IF      shift, and go to state 16
+    WHILE   shift, and go to state 17
+
+    sentence         go to state 71
+    assign_sentence  go to state 20
+    if_sentence      go to state 21
+    while_sentence   go to state 22
+    com_sentence     go to state 23
+
+
+State 71
+
+   16 if_sentence: IF relational_expr THEN sentence ELSE sentence .
+
+    $default  reduce using rule 16 (if_sentence)
