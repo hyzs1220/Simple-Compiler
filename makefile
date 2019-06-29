@@ -1,8 +1,8 @@
-parser1.exe: parsetest.o parser.tab.o lex.yy.o errormsg.o util.o ast.o prast.o
-	gcc -o parser1 parsetest.o parser.tab.o lex.yy.o errormsg.o util.o ast.o prast.o
+parser1.exe: main.o parser.tab.o lex.yy.o errormsg.o util.o ast.o prast.o
+	gcc -o parser1 main.o parser.tab.o lex.yy.o errormsg.o util.o ast.o prast.o
 
-parsetest.o: parsetest.c errormsg.h ast.h util.h prast.h
-	gcc -c parsetest.c
+main.o: main.c errormsg.h ast.h util.h prast.h
+	gcc -c main.c
 
 parser.tab.o: parser.tab.c ast.h util.h errormsg.h
 	gcc -c parser.tab.c
@@ -22,8 +22,8 @@ ast.o: ast.c ast.h util.h
 lex.yy.o: lex.yy.c parser.tab.h errormsg.h ast.h util.h
 	gcc -c lex.yy.c
 
-#lex.yy.c: parser.l
-#	flex parser.l
+lex.yy.c: parser.l
+	flex parser.l
 
 
 util.o: util.c util.h
@@ -35,12 +35,11 @@ prast.o: prast.c prast.h ast.h
 
 #测试例test0.p（只指定输入文件，屏幕输出）
 test00:
-	./parser1.exe testcases/test0.p
+	./parser1 testcases/test0.p
 
 #测试例test0.p （指定了输入和输出文件）
 test01:
-	./parser1.exe testcases/test0.p test0.out
-
+	./parser1 testcases/test1.p
 
 
 clean: 

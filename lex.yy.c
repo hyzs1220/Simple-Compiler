@@ -491,14 +491,14 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "exp6.l"
+#line 1 "parser.l"
 /* 把讨厌的注释去掉 */
-#line 4 "exp6.l"
+#line 4 "parser.l"
 
 
 #include <string.h>
 #include "ast.h"
-#include "exp6.tab.h" /* 该文件中包含了词法分析所需的记号名等 */
+#include "parser.tab.h" /* 该文件中包含了词法分析所需的记号名等 */
 #include "errormsg.h"
 
 int charPos=1;
@@ -739,7 +739,7 @@ YY_DECL
 		}
 
 	{
-#line 44 "exp6.l"
+#line 44 "parser.l"
 
 
 #line 746 "lex.yy.c"
@@ -801,190 +801,190 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 46 "exp6.l"
+#line 46 "parser.l"
 {BEGIN COMMENT;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 47 "exp6.l"
+#line 47 "parser.l"
 {BEGIN INITIAL;}
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 48 "exp6.l"
+#line 48 "parser.l"
 {;}
 	YY_BREAK
 /* ECHO是一个宏，相当于 fprintf(yyout, "%s", yytext)*/
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 54 "exp6.l"
-{adjust(); ;}
+#line 54 "parser.l"
+{adjust();}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 55 "exp6.l"
-{adjust(); adjust(); return (PROGRAM);}
+#line 55 "parser.l"
+{adjust(); return (PROGRAM);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 56 "exp6.l"
+#line 56 "parser.l"
 {adjust(); return (BEGINN);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 57 "exp6.l"
+#line 57 "parser.l"
 {adjust(); return (WHILE);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 58 "exp6.l"
+#line 58 "parser.l"
 {adjust(); return (DO);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 59 "exp6.l"
+#line 59 "parser.l"
 {adjust(); return (IF);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 60 "exp6.l"
+#line 60 "parser.l"
 {adjust(); return (THEN);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 61 "exp6.l"
+#line 61 "parser.l"
 {adjust(); return (ELSE);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 62 "exp6.l"
+#line 62 "parser.l"
 {adjust(); return (VAR);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 63 "exp6.l"
+#line 63 "parser.l"
 {adjust(); return (INTEGER);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 64 "exp6.l"
+#line 64 "parser.l"
 {adjust(); return (REAL);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 65 "exp6.l"
+#line 65 "parser.l"
 {adjust(); return (END);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 67 "exp6.l"
+#line 67 "parser.l"
 {adjust(); yylval.sval = String(yytext);return (ID);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 68 "exp6.l"
+#line 68 "parser.l"
 {adjust(); yylval.ival=atoi(yytext);return (INT);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 69 "exp6.l"
+#line 69 "parser.l"
 {adjust(); yylval.fval=atof(yytext);return (FLOAT);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 71 "exp6.l"
+#line 71 "parser.l"
 {adjust(); return (PLUS);}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 72 "exp6.l"
+#line 72 "parser.l"
 {adjust(); return (MINUS);}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 73 "exp6.l"
+#line 73 "parser.l"
 {adjust(); return (TIMES);}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 74 "exp6.l"
+#line 74 "parser.l"
 {adjust(); return (DIVIDE);}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 76 "exp6.l"
+#line 76 "parser.l"
 {adjust(); return (EQ);}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 77 "exp6.l"
+#line 77 "parser.l"
 {adjust(); return (NEQ);}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 78 "exp6.l"
+#line 78 "parser.l"
 {adjust(); return (GT);}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 79 "exp6.l"
+#line 79 "parser.l"
 {adjust(); return (GE);}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 80 "exp6.l"
+#line 80 "parser.l"
 {adjust(); return (LT);}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 81 "exp6.l"
+#line 81 "parser.l"
 {adjust(); return (LE);}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 83 "exp6.l"
+#line 83 "parser.l"
 {adjust(); return (ASSIGN);}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 84 "exp6.l"
+#line 84 "parser.l"
 {adjust(); return (COLON);}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 85 "exp6.l"
+#line 85 "parser.l"
 {adjust(); return (SEMICOLON);}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 86 "exp6.l"
+#line 86 "parser.l"
 {adjust(); return (COMMA);}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 87 "exp6.l"
+#line 87 "parser.l"
 {adjust(); return LPAREN;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 88 "exp6.l"
+#line 88 "parser.l"
 {adjust(); return RPAREN;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 89 "exp6.l"
+#line 89 "parser.l"
 {adjust(); return (PERIOD);}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 91 "exp6.l"
+#line 91 "parser.l"
 {printf("\nLEX:ERROR! c=%s\n", yytext);}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 93 "exp6.l"
+#line 93 "parser.l"
 ECHO;
 	YY_BREAK
 #line 991 "lex.yy.c"
@@ -1993,7 +1993,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 93 "exp6.l"
+#line 93 "parser.l"
 
 
 

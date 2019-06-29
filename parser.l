@@ -5,7 +5,7 @@
 
 #include <string.h>
 #include "ast.h"
-#include "exp6.tab.h" /* 该文件中包含了词法分析所需的记号名等 */
+#include "parser.tab.h" /* 该文件中包含了词法分析所需的记号名等 */
 #include "errormsg.h"
 
 int charPos=1;
@@ -51,8 +51,8 @@ float 		({digit})*(\.{digit})({digit})*
 
  /* ECHO是一个宏，相当于 fprintf(yyout, "%s", yytext)*/
 
-<INITIAL>{ws} 				{adjust(); ;}
-<INITIAL>PROGRAM 			{adjust(); adjust(); return (PROGRAM);}
+<INITIAL>{ws} 				{adjust();}
+<INITIAL>PROGRAM 			{adjust(); return (PROGRAM);}
 <INITIAL>BEGIN 				{adjust(); return (BEGINN);}
 <INITIAL>WHILE 				{adjust(); return (WHILE);}
 <INITIAL>DO 				{adjust(); return (DO);}
